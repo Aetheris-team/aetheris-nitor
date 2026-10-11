@@ -171,7 +171,8 @@ const apiBase = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000';
   </main>
 </Layout>
 
-<script is:inline define:vars={{ apiBase }}>
+<script>
+  const apiBase = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000';
   const dot = document.getElementById('api-dot');
   const badge = document.getElementById('api-badge');
   const contenedor = document.getElementById('api-contenedor-estado');
@@ -234,7 +235,7 @@ const apiBase = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000';
   }
 
   // El detalle técnico se muestra aparte, en pequeño, para quien diagnostica.
-  function mostrarReintento(mensaje, detalle) {
+  function mostrarReintento(mensaje: string, detalle: string) {
     if (!contenedor) return;
     contenedor.innerHTML = '';
     const caja = document.createElement('div');
