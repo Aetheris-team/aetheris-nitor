@@ -29,3 +29,36 @@ const { etiqueta, enlaces, class: clasePersonalizada = 'mb-6' } = Astro.props;
     ))
   }
 </nav>
+
+<script>
+  document.addEventListener('keydown', (evento) => {
+    const enlaceActual = evento.target as HTMLElement | null;
+    if (!enlaceActual || !enlaceActual.matches('[data-nav-secciones] a'))
+      return;
+
+    const nav = enlaceActual.closest('[data-nav-secciones]');
+    if (!nav) return;
+
+    const enlaces = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'));
+    if (enlaces.length === 0) return;
+
+    const indice = enlaces.indexOf(enlaceActual as HTMLAnchorElement);
+    if (indice === -1) return;
+
+    let nuevoIndice = -1;
+    if (evento.key === 'ArrowRight' || evento.key === 'ArrowDown') {
+      nuevoIndice = (indice + 1) % enlaces.length;
+    } else if (evento.key === 'ArrowLeft' || evento.key === 'ArrowUp') {
+      nuevoIndice = (indice - 1 + enlaces.length) % enlaces.length;
+    } else if (evento.key === 'Home') {
+      nuevoIndice = 0;
+    } else if (evento.key === 'End') {
+      nuevoIndice = enlaces.length - 1;
+    }
+
+    if (nuevoIndice !== -1) {
+      evento.preventDefault();
+      enlaces[nuevoIndice]?.focus();
+    }
+  });
+</script>
