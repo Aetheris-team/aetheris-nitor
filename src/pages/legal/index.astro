@@ -4,7 +4,7 @@
  * documento: cada tarjeta resume lo que el documento enlazado dice de verdad,
  * y el bloque «En pocas palabras» adelanta los hechos que más preguntan
  * quienes llegan aquí. Todos se pueden comprobar en el código (sin cookies ni
- * analítica, teselas de OpenStreetMap en los mapas, licencia GPL-3.0).
+ * analítica, mapas vectoriales SVG locales sin peticiones de teselas a terceros, licencia GPL-3.0).
  *
  * Si cambia el contenido de una de las tres legales, hay que revisar su
  * descripción aquí: una tarjeta que promete algo que el documento no dice es
@@ -23,7 +23,7 @@ const SECCIONES = [
     href: '/legal/privacidad',
     titulo: 'Política de privacidad',
     descripcion:
-      'Qué datos técnicos circulan al usar el sitio, quién los recibe (Render, OpenStreetMap), por qué no hay cookies y cómo ejercer los derechos sobre los datos personales.',
+      'Qué datos técnicos circulan al usar el sitio, quién los recibe (Render), por qué no hay cookies ni transferencias a servidores de mapas y cómo ejercer los derechos sobre los datos personales.',
     icono: 'shield-check',
   },
   {
@@ -117,8 +117,9 @@ const SECCIONES = [
           No hay cuentas de usuario, cookies ni herramientas de analítica.
         </li>
         <li>
-          Al dibujar un mapa, el navegador pide las imágenes de fondo a
-          OpenStreetMap, que recibe la dirección IP de quien visita el sitio.
+          Los mapas son geometrías vectoriales locales en SVG: no se solicitan
+          teselas de terceros ni se transfieren datos o direcciones IP a
+          OpenStreetMap.
         </li>
         <li>
           Las cifras son datos públicos agregados por departamento y semana. Lo

@@ -86,4 +86,4 @@ Se probó como variable del clasificador retirado y no mejoró sus resultados. S
 
 `fuentes_datos.codigo` usa estas cadenas: `opendengue_v1_3`, `minsal_pdf`, `open_meteo_era5_land`, `open_meteo_era5`, `noaa_oni`. `variables_ambientales.variable` es texto libre sin restricción, así que un error de escritura crearía una serie nueva sin avisar. Las variables en uso son `temp_max`, `temp_min`, `temp_media`, `precipitation_sum`, `precipitation_hours`, `humedad_relativa_media`, `punto_rocio` y `oni_anom`.
 
-Los límites departamentales del mapa vienen de geoBoundaries gbOpen SLV ADM1 (datos de OSM a través de osm-boundaries.com), con licencia CC BY-SA 2.0. La atribución está en los [términos de uso](/legal/terminos).
+Los límites departamentales del mapa vienen de geoBoundaries gbOpen SLV ADM1 (datos de OSM a través de osm-boundaries.com), con licencia CC BY-SA 2.0. La cartografía se renderiza localmente como trazados vectoriales SVG integrados, sin peticiones de red a servidores de mapas externos ni descarga de teselas de terceros. La atribución está en los [términos de uso](/legal/terminos).
