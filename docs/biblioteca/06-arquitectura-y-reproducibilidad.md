@@ -15,7 +15,7 @@ Para instalar EPI-Aetheris basta con el [repositorio](https://github.com/the-mon
 |---|---|---|
 | `db` | PostgreSQL 15 | 5432 |
 | `backend` | FastAPI con `psycopg2`, sin ORM | 8000 (`/health`; `/docs` solo en local) |
-| `web` | Astro, TypeScript, Leaflet y Tailwind | 4321 |
+| `web` | Astro, TypeScript, mapas vectoriales SVG y Tailwind | 4321 |
 
 La primera vez que arranca con un volumen vacío, la base crea el esquema a partir de `db/migrations/*.sql` y carga `db/seed/seed_datos_reales.sql`, una copia de las tablas de datos hecha con `pg_dump --data-only` (ADR 0010). Así, quien clona el repositorio tiene el sistema funcionando con los mismos datos que el sitio público.
 
@@ -59,7 +59,7 @@ Se ejecuta desde el equipo anfitrión contra `localhost:5432`. No tiene marcha a
 ## Tecnologías
 
 - Backend: Python, FastAPI, scikit-learn (solo para el clasificador retirado), `pdfplumber` y `epiweeks` (semanas epidemiológicas de OPS/CDC, distintas de las semanas ISO 8601).
-- Frontend: Astro, TypeScript, Tailwind CSS 4 y Leaflet, sin React ni Vue.
+- Frontend: Astro, TypeScript, Tailwind CSS 4 y mapas vectoriales SVG nativos sin dependencias externas, sin React ni Vue.
 - Tablas, columnas y comentarios del código están en español.
 
 Esta Biblioteca se escribe en Markdown y Astro la publica como colección de contenido. La documentación interna del equipo (decisiones de arquitectura, notas de contexto, informes de experimentos) está en `docs/` y no se publica aquí.
