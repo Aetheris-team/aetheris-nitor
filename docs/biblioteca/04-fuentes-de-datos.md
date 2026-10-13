@@ -5,7 +5,7 @@ orden: 4
 categoria: "Datos y método"
 ---
 
-Cada conteo y cada variable de clima de EPI-Aetheris viene de una fuente pública y lleva su `fuente_id` en la base. Esta página resume de dónde sale cada serie, qué años cubre y con qué licencia se usa. Los problemas encontrados al cargar cada fuente están documentados en las [notas de fuentes del repositorio](https://github.com/the-monolith-project/EPI-Aetheris/blob/main/docs/contexto/03-fuentes-de-datos.md).
+Cada conteo y cada variable de clima de EPI-Aetheris viene de una fuente pública y lleva su `fuente_id` en la base. Esta página resume de dónde sale cada serie, qué años cubre y con qué licencia se usa. Los problemas encontrados al cargar cada fuente están documentados en las [notas de fuentes del repositorio](https://github.com/aetheris-team/EPI-Aetheris/blob/main/docs/contexto/03-fuentes-de-datos.md).
 
 ## Boletines epidemiológicos de MINSAL
 
