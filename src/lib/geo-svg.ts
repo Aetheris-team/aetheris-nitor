@@ -7,6 +7,8 @@
 // óptimos para etiquetas legibles (centroX, centroY), nombres normalizados y
 // códigos cortos/abreviaturas oficiales (ISO 3166-2:SV) para pantallas estrechas.
 
+import { redondear } from './estadistica.ts';
+
 export type Anillo = number[][];
 
 export interface GeometriaDepartamento {
@@ -276,7 +278,6 @@ export function proyectarDepartamentos(
 
   const x = (lon: number) => margen + (lon - lonMin) * factor * escala;
   const y = (lat: number) => margen + (latMax - lat) * escala;
-  const redondear = (n: number) => Math.round(n * 10) / 10;
 
   const departamentos: DepartamentoSvg[] = geo.features.map((f) => {
     let d = '';
@@ -295,7 +296,7 @@ export function proyectarDepartamentos(
         if (ultimo && Math.hypot(px - ultimo[0], py - ultimo[1]) < tolerancia) {
           continue;
         }
-        trazo += `${trazo === '' ? 'M' : 'L'}${redondear(px)} ${redondear(py)}`;
+        trazo += `${trazo === '' ? 'M' : 'L'}${redondear(px, 1)} ${redondear(py, 1)}`;
         ultimo = [px, py];
       }
       if (trazo !== '') d += `${trazo}Z`;
@@ -316,12 +317,12 @@ export function proyectarDepartamentos(
 
     if (codigo && CENTROIDES_EL_SALVADOR[codigo]) {
       const [lonC, latC] = CENTROIDES_EL_SALVADOR[codigo];
-      centroX = redondear(x(lonC));
-      centroY = redondear(y(latC));
+      centroX = redondear(x(lonC), 1);
+      centroY = redondear(y(latC), 1);
     } else {
       const [cx, cy] = centroideAnillos(anillosProyectados);
-      centroX = redondear(cx);
-      centroY = redondear(cy);
+      centroX = redondear(cx, 1);
+      centroY = redondear(cy, 1);
     }
 
     return {

@@ -552,12 +552,9 @@ const mapa = proyectarDepartamentos(geo, ancho, 14, 0.4);
       const valores = Object.values(DATOS_DEMO)
         .map((d) => d.minsal)
         .sort((a, b) => a - b);
-      return [
-        valores[Math.floor(valores.length * 0.2)],
-        valores[Math.floor(valores.length * 0.4)],
-        valores[Math.floor(valores.length * 0.6)],
-        valores[Math.floor(valores.length * 0.8)],
-      ];
+      const corte = (p: number) =>
+        valores[Math.min(valores.length - 1, Math.floor(p * (valores.length - 1)))];
+      return [corte(0.2), corte(0.4), corte(0.6), corte(0.8)];
     }
 
     const cortesCasos = cortesMinsal();
@@ -653,8 +650,10 @@ const mapa = proyectarDepartamentos(geo, ancho, 14, 0.4);
 
         if (codigo === deptoSeleccionado) {
           p.classList.add('seleccionado');
+          p.setAttribute('aria-pressed', 'true');
         } else {
           p.classList.remove('seleccionado');
+          p.setAttribute('aria-pressed', 'false');
         }
       });
       actualizarAvisoyLeyenda();

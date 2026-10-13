@@ -400,10 +400,7 @@ const mapaSvg = proyectarDepartamentos(geo, 700, 14, 0.4);
         const cuerpo = datos as { departamentos: DatoDepartamentoIra[] };
         detalles = new Map(cuerpo.departamentos.map((d) => [d.codigo, d]));
         valores = new Map(
-          cuerpo.departamentos.map((d) => [
-            d.codigo,
-            d.notificado_total > 0 ? d.notificado_total : undefined,
-          ]),
+          cuerpo.departamentos.map((d) => [d.codigo, d.notificado_total]),
         );
       }
     } catch {
@@ -465,6 +462,7 @@ const mapaSvg = proyectarDepartamentos(geo, 700, 14, 0.4);
         if (!tooltip) return;
         tooltip.innerHTML = textoTooltip;
         tooltip.classList.remove('hidden');
+        tooltip.setAttribute('aria-hidden', 'false');
         posicionarTooltip(e);
       });
 
@@ -474,29 +472,33 @@ const mapaSvg = proyectarDepartamentos(geo, 700, 14, 0.4);
 
       ruta.addEventListener('mouseleave', () => {
         tooltip?.classList.add('hidden');
+        tooltip?.setAttribute('aria-hidden', 'true');
       });
 
       ruta.addEventListener('focus', () => {
         if (!tooltip || !svgElement) return;
         tooltip.innerHTML = textoTooltip;
         tooltip.classList.remove('hidden');
+        tooltip.setAttribute('aria-hidden', 'false');
         const rect = contenedorCanvas!.getBoundingClientRect();
         const svgRect = svgElement.getBoundingClientRect();
         const bbox = ruta.getBBox();
+        const viewBox = svgElement.viewBox.baseVal;
         const x =
           svgRect.left -
           rect.left +
-          (bbox.x + bbox.width / 2) * (svgRect.width / 700);
+          (bbox.x + bbox.width / 2) * (svgRect.width / viewBox.width);
         const y =
           svgRect.top -
           rect.top +
-          (bbox.y + bbox.height * 0.3) * (svgRect.height / 450);
+          (bbox.y + bbox.height * 0.3) * (svgRect.height / viewBox.height);
         tooltip.style.left = `${x}px`;
         tooltip.style.top = `${y}px`;
       });
 
       ruta.addEventListener('blur', () => {
         tooltip?.classList.add('hidden');
+        tooltip?.setAttribute('aria-hidden', 'true');
       });
     });
 
