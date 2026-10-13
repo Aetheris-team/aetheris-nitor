@@ -53,7 +53,7 @@ Para seguir el cálculo con ejemplos y un laboratorio, ver la [ficha enriquecida
 | Lectura | Hasta P50, `baja`; entre P50 y P75, `media`; por encima de P75, `alta`; más el percentil de 0 a 100 |
 | Sin datos suficientes | `percentil = null` y una nota; no se interpola |
 
-La fórmula completa está en el [documento del módulo 3](https://github.com/the-monolith-project/EPI-Aetheris/blob/main/docs/modulos-descriptivos/modulo-3-presion-epidemiologica.md).
+La fórmula completa está en el [documento del módulo 3](https://github.com/aetheris-team/EPI-Aetheris/blob/main/docs/modulos-descriptivos/modulo-3-presion-epidemiologica.md).
 
 Endpoints: `GET /api/v1/presion/current` y `GET /api/v1/presion/temporal/{codigo}`.
 

@@ -5,7 +5,7 @@ orden: 6
 categoria: "Cómo funciona"
 ---
 
-Para instalar EPI-Aetheris basta con el [repositorio](https://github.com/the-monolith-project/EPI-Aetheris) y Docker. El núcleo no depende de APIs de datos de pago ni de servicios en la nube obligatorios. Las rutas de archivo de esta página son relativas a la raíz del repositorio.
+Para instalar EPI-Aetheris basta con el [repositorio](https://github.com/aetheris-team/EPI-Aetheris) y Docker. El núcleo no depende de APIs de datos de pago ni de servicios en la nube obligatorios. Las rutas de archivo de esta página son relativas a la raíz del repositorio.
 
 ## Tres servicios
 

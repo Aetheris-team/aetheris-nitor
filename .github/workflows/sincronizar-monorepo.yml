@@ -35,7 +35,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  MONOREPO: the-monolith-project/EPI-Aetheris
+  MONOREPO: aetheris-team/EPI-Aetheris
   RAMA: chore/web-sincronizado-auto
 
 jobs:

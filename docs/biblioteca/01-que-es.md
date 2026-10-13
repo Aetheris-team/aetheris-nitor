@@ -32,6 +32,6 @@ Esta Biblioteca explica qué es el proyecto, qué funciones tiene, de dónde sal
 
 ## Quién lo construye
 
-Lo desarrolla el Equipo 4 de 3.er año de Bachillerato Técnico Vocacional en Desarrollo de Software del INSAMT (Instituto Nacional de San Miguel Tepezontes, El Salvador) para Expotécnica. Son cinco integrantes, tres de ellos dedicados a la programación. El código está en [GitHub](https://github.com/the-monolith-project/EPI-Aetheris).
+Lo desarrolla el Equipo 4 de 3.er año de Bachillerato Técnico Vocacional en Desarrollo de Software del INSAMT (Instituto Nacional de San Miguel Tepezontes, El Salvador) para Expotécnica. Son cinco integrantes, tres de ellos dedicados a la programación. El código está en [GitHub](https://github.com/aetheris-team/EPI-Aetheris).
 
 La relación entre dengue, clima y aprendizaje automático ya está estudiada. Lo que aporta el equipo es el software: integración de fuentes, registro del origen de cada dato, instalación con Docker y acceso abierto al código y a los datos.
