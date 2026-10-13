@@ -14,7 +14,7 @@ Para instalar EPI-Aetheris basta con el [repositorio](https://github.com/the-mon
 | Servicio | Qué es | Puerto |
 |---|---|---|
 | `db` | PostgreSQL 15 | 5432 |
-| `backend` | FastAPI con `psycopg2`, sin ORM | 8000 (`/health`, `/docs`) |
+| `backend` | FastAPI con `psycopg2`, sin ORM | 8000 (`/health`; `/docs` solo en local) |
 | `web` | Astro, TypeScript, mapas vectoriales SVG y Tailwind | 4321 |
 
 La primera vez que arranca con un volumen vacío, la base crea el esquema a partir de `db/migrations/*.sql` y carga `db/seed/seed_datos_reales.sql`, una copia de las tablas de datos hecha con `pg_dump --data-only` (ADR 0010). Así, quien clona el repositorio tiene el sistema funcionando con los mismos datos que el sitio público.
