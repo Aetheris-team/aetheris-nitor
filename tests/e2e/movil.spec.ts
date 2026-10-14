@@ -76,3 +76,74 @@ test('/dengue muestra la última semana publicada sin la semana siguiente', asyn
   await expect(franja).toHaveCount(1);
   await expect(franja).not.toContainText('Semana siguiente');
 });
+
+test.describe('pantalla táctil', () => {
+  test.use({
+    hasTouch: true,
+    isMobile: true,
+    viewport: { width: 375, height: 740 },
+  });
+
+  test('los campos de formulario no bajan de 16 px (evita el zoom de iOS)', async ({
+    page,
+  }) => {
+    for (const ruta of ['/alertas/nueva', '/respiratorio', '/acerca-de']) {
+      await page.goto(ruta);
+      const menores = await page.evaluate(() =>
+        [
+          ...document.querySelectorAll<HTMLElement>(
+            'input:not([type=hidden],[type=checkbox],[type=radio],[type=range]),select,textarea',
+          ),
+        ]
+          .filter((el) => el.getClientRects().length > 0)
+          .filter((el) => parseFloat(getComputedStyle(el).fontSize) < 16)
+          .map((el) => el.outerHTML.slice(0, 80)),
+      );
+      expect(menores, ruta).toEqual([]);
+    }
+  });
+
+  test('los deslizadores y los resúmenes plegables tienen área táctil de 44 px', async ({
+    page,
+  }) => {
+    await page.goto('/respiratorio');
+    const rango = page.locator('input[type=range]:visible').first();
+    expect((await rango.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+    const resumen = page.locator('summary:visible').first();
+    expect((await resumen.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+  });
+});
+
+test('la ayuda del mapa no aplasta su texto en teléfono', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto('/dengue');
+  const texto = page
+    .locator('[data-ayudas-mapa]')
+    .locator('xpath=preceding-sibling::p[1]');
+  expect((await texto.boundingBox())?.width).toBeGreaterThan(180);
+});
+
+test('la descripción de una tarjeta no queda en una columna estrecha junto a Exportar', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto('/respiratorio');
+  const descripcion = page
+    .locator('.panel-cabecera .panel-descripcion')
+    .first();
+  expect((await descripcion.boundingBox())?.width).toBeGreaterThan(180);
+});
+
+test('en horizontal la cabecera deja de ser pegajosa', async ({ page }) => {
+  await page.setViewportSize({ width: 740, height: 360 });
+  await page.goto('/dengue');
+  await expect(page.locator('header.cabecera-sitio')).toHaveCSS(
+    'position',
+    'static',
+  );
+  await page.setViewportSize({ width: 375, height: 740 });
+  await expect(page.locator('header.cabecera-sitio')).toHaveCSS(
+    'position',
+    'sticky',
+  );
+});

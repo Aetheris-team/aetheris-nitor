@@ -178,20 +178,28 @@ const mapaSvg = proyectarDepartamentos(geo, 720, 14, 0.4);
     <div
       class="flex flex-col gap-3 p-4 sm:p-5 lg:w-[320px] lg:shrink-0 lg:overflow-y-auto lg:border-l lg:border-border"
     >
+      {
+        /* flex-wrap: en teléfono (y en la barra lateral de 320 px de lg) los
+        cuatro botones de ayuda junto al texto lo aplastaban a una columna de
+        ~90 px y una palabra por línea. Con base mínima para el párrafo, los
+        botones bajan a su propia fila cuando no caben. */
+      }
       <div
-        class="flex gap-2 rounded-lg border border-dashed border-border bg-surface p-3"
+        class="flex flex-wrap gap-x-2 gap-y-3 rounded-lg border border-dashed border-border bg-surface p-3"
       >
         <Icono
           nombre="list-details"
           class="mt-0.5 h-4 w-4 shrink-0 text-accent"
         />
-        <p class="font-sans text-xs leading-relaxed text-ink-muted">
+        <p
+          class="min-w-0 flex-1 basis-48 font-sans text-xs leading-relaxed text-ink-muted"
+        >
           <strong class="font-semibold text-ink"
             >Cómo interpretar el mapa:</strong
           > el significado del color depende de la capa seleccionada. La explicación
           específica aparece en el aviso de la capa. El gris indica ausencia de dato.
         </p>
-        <div class="flex shrink-0 items-start gap-2" data-ayudas-mapa>
+        <div class="flex shrink-0 items-start gap-3 ps-6" data-ayudas-mapa>
           <AyudaTermino clave="iv" />
           <AyudaTermino clave="anomalia" />
           <AyudaTermino clave="percentil-presion" />

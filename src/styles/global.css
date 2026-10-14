@@ -100,6 +100,45 @@
     --alto-header: 5.5rem;
   }
 }
+/* Teléfono en horizontal: con ~360 px de alto, la cabecera pegajosa (88 px)
+   y la barra del análisis se comían casi la mitad de la pantalla. Ahí la
+   cabecera deja de ser pegajosa (Layout.astro) y su altura publicada pasa a
+   0, para que lo que se pega debajo suba hasta el borde. */
+@media (orientation: landscape) and (max-height: 30rem) {
+  :root {
+    --alto-header: 0rem;
+  }
+}
+
+/* Pantallas táctiles (pointer: coarse). Fuera de @layer a propósito: tiene
+   que ganarle a las utilidades text-xs / text-sm de cada control.
+   - iOS Safari amplía la página al enfocar un campo con letra < 16 px y no
+     la devuelve al salir: en /alertas/nueva o en los selectores del análisis
+     cada toque descolocaba la vista. Con 16 px no hay zoom.
+   - Los deslizadores de rango medían 16 px de alto; con 44 px de área el
+     pulgar de un dedo los acierta (WCAG 2.5.5 / 2.5.8). El carril se sigue
+     dibujando centrado, sin cambio visual.
+   - Los <summary> de "Ver los datos en tabla" medían 16 px de alto. */
+@media (pointer: coarse) {
+  input:not(
+    [type='checkbox'],
+    [type='radio'],
+    [type='range'],
+    [type='color'],
+    [type='file']
+  ),
+  select,
+  textarea {
+    font-size: max(1rem, 1em);
+  }
+  input[type='range'] {
+    min-block-size: 2.75rem;
+  }
+  summary {
+    min-block-size: 2.75rem;
+    align-content: center;
+  }
+}
 
 /* Tamaño de texto "grande" (/configuracion, lib/preferencias.ts). Subir el
    tamaño raíz escala todo lo que está en rem, que es casi todo el sitio. Los
@@ -775,12 +814,22 @@ html[data-animar] .workspace-revelacion [data-panel-workspace]:not([hidden]) {
   }
 }
 
+/* El bloque de título tiene base mínima y la cabecera se parte: en teléfono,
+   un control ancho a la derecha (Exportar) dejaba la descripción en una
+   columna de ~90 px con una o dos palabras por línea. Ahora el control baja
+   a su propia fila cuando no caben los dos; un botón pequeño (el menú de
+   PanelAnalisis) sigue cabiendo junto a un título corto. */
 .panel-cabecera {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem 1rem;
   margin-bottom: 1rem;
+}
+.panel-cabecera > :first-child {
+  flex: 1 1 11rem;
+  min-width: 0;
 }
 
 .panel-titulo {
