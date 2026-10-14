@@ -1,0 +1,47 @@
+# Comprobaciones del frontend en cada PR y en cada push a main: lint, formato,
+# tipos (astro check) y pruebas unitarias. Las E2E (Playwright) no corren aquí
+# porque necesitan la API levantada. web/ del monorepo EPI-Aetheris es una
+# copia de este repo, así que estas comprobaciones también cubren lo que se
+# sincroniza allí.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+
+      # pnpm sale del campo packageManager de package.json (Corepack), la
+      # misma versión que en local y en el Dockerfile.
+      - name: Activar pnpm
+        run: corepack enable
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Formato
+        run: pnpm format:check
+
+      - name: Tipos
+        run: pnpm check
+
+      - name: Pruebas unitarias
+        run: pnpm test:unit
