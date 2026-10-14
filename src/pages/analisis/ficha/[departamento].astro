@@ -47,10 +47,13 @@ const { codigo, nombre } = departamento;
       >
         <a
           href="/analisis"
-          class="hover:text-accent underline underline-offset-2">Análisis</a
+          class="area-tactil hover:text-accent underline underline-offset-2"
+          >Análisis</a
         >
         <span>/</span>
-        <a href="/dengue" class="hover:text-accent underline underline-offset-2"
+        <a
+          href="/dengue"
+          class="area-tactil hover:text-accent underline underline-offset-2"
           >Dengue</a
         >
         <span>/</span>
@@ -236,13 +239,13 @@ const { codigo, nombre } = departamento;
             <div>
               <div class="flex items-center justify-between gap-1">
                 <span
-                  class="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-muted print:text-black"
+                  class="font-sans text-micro font-semibold uppercase tracking-wider text-ink-muted print:text-black"
                 >
                   M1 · Idoneidad biofísica
                 </span>
                 <span
                   data-m1-badge
-                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-[10px] text-ink font-medium"
+                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-micro print:text-[10px] text-ink font-medium"
                 >
                   Iv [0–1]
                 </span>
@@ -281,13 +284,13 @@ const { codigo, nombre } = departamento;
             <div>
               <div class="flex items-center justify-between gap-1">
                 <span
-                  class="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-muted print:text-black"
+                  class="font-sans text-micro font-semibold uppercase tracking-wider text-ink-muted print:text-black"
                 >
                   M2 · Anomalía climática
                 </span>
                 <span
                   data-m2-badge
-                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-[10px] text-ink font-medium"
+                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-micro print:text-[10px] text-ink font-medium"
                 >
                   Z-score (σ)
                 </span>
@@ -326,13 +329,13 @@ const { codigo, nombre } = departamento;
             <div>
               <div class="flex items-center justify-between gap-1">
                 <span
-                  class="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-muted print:text-black"
+                  class="font-sans text-micro font-semibold uppercase tracking-wider text-ink-muted print:text-black"
                 >
                   M3 · Presión (Probable)
                 </span>
                 <span
                   data-m3-prob-cat
-                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-[10px] text-ink font-medium"
+                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-micro print:text-[10px] text-ink font-medium"
                 >
                   Percentil
                 </span>
@@ -371,13 +374,13 @@ const { codigo, nombre } = departamento;
             <div>
               <div class="flex items-center justify-between gap-1">
                 <span
-                  class="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-muted print:text-black"
+                  class="font-sans text-micro font-semibold uppercase tracking-wider text-ink-muted print:text-black"
                 >
                   M3 · Presión (Confirmado)
                 </span>
                 <span
                   data-m3-conf-cat
-                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-[10px] text-ink font-medium"
+                  class="rounded bg-secondary/30 px-1.5 py-0.5 font-sans text-micro print:text-[10px] text-ink font-medium"
                 >
                   Percentil
                 </span>
@@ -443,7 +446,7 @@ const { codigo, nombre } = departamento;
                 Idoneidad biofísica (Iv) frente a la banda histórica P25–P75
               </h3>
               <span
-                class="font-sans text-[10px] text-ink-muted print:text-black"
+                class="font-sans text-micro print:text-[10px] text-ink-muted print:text-black"
                 >Línea: <span data-anio-clima>—</span> · Sombra: P25–P75</span
               >
             </div>
@@ -466,7 +469,7 @@ const { codigo, nombre } = departamento;
                 Anomalía climática continua (Z-score σ leave-one-out)
               </h3>
               <span
-                class="font-sans text-[10px] text-ink-muted print:text-black"
+                class="font-sans text-micro print:text-[10px] text-ink-muted print:text-black"
                 >Desviaciones frente a la propia historia</span
               >
             </div>
@@ -503,7 +506,7 @@ const { codigo, nombre } = departamento;
             </caption>
             <thead>
               <tr
-                class="border-b border-border bg-bg/50 print:border-black print:bg-transparent text-left text-[11px] font-semibold text-ink-muted print:text-black"
+                class="border-b border-border bg-bg/50 print:border-black print:bg-transparent text-left text-micro font-semibold text-ink-muted print:text-black"
               >
                 <th scope="col" class="p-1.5">Semana</th>
                 <th scope="col" class="p-1.5">Iv real</th>
@@ -561,7 +564,8 @@ const { codigo, nombre } = departamento;
                 <span class="font-semibold text-ink print:text-black"
                   >Infección respiratoria aguda (IRA)</span
                 >
-                <span class="text-[10px] text-ink-muted print:text-black"
+                <span
+                  class="text-micro print:text-[10px] text-ink-muted print:text-black"
                   >Notificado total</span
                 >
               </div>
@@ -601,7 +605,8 @@ const { codigo, nombre } = departamento;
                 <span class="font-semibold text-ink print:text-black"
                   >Neumonías notificadas</span
                 >
-                <span class="text-[10px] text-ink-muted print:text-black"
+                <span
+                  class="text-micro print:text-[10px] text-ink-muted print:text-black"
                   >Notificado total</span
                 >
               </div>
@@ -672,7 +677,7 @@ const { codigo, nombre } = departamento;
 
       <!-- Pie de pagina para impresion -->
       <footer
-        class="pt-2 border-t border-border print:border-black font-sans text-[11px] leading-relaxed text-ink-muted print:text-black"
+        class="pt-2 border-t border-border print:border-black font-sans text-micro leading-relaxed text-ink-muted print:text-black"
       >
         <p>
           <strong>Aviso institucional:</strong> Herramienta descriptiva de priorización
@@ -1409,7 +1414,7 @@ const { codigo, nombre } = departamento;
           caja.innerHTML = `
             <div class="flex items-center justify-between gap-1">
               <span class="font-semibold text-ink print:text-black text-xs">${escapeHtml(alerta.titulo)}</span>
-              <span class="rounded bg-secondary/30 px-1.5 py-0.5 text-[10px] font-medium">${escapeHtml(alerta.tipo).toUpperCase()}</span>
+              <span class="rounded bg-secondary/30 px-1.5 py-0.5 text-micro print:text-[10px] font-medium">${escapeHtml(alerta.tipo).toUpperCase()}</span>
             </div>
             <div class="text-ink-muted print:text-black text-xs leading-relaxed space-y-1">${renderTextoAccionable(alerta.indicaciones || alerta.contexto || '')}</div>
             ${bloquesClinicos}

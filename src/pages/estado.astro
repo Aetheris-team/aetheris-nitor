@@ -75,7 +75,7 @@ const apiBase = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000';
                 API pública de cómputo y datos
               </h2>
               <p class="font-sans text-xs text-ink-muted">
-                Servicio FastAPI en Oregon (<code class="font-mono text-[11px]"
+                Servicio FastAPI en Oregon (<code class="font-mono text-micro"
                   >{apiBase}</code
                 >).
               </p>
@@ -231,7 +231,7 @@ const apiBase = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:8000';
 
     if (detalle) {
       const pDetalle = document.createElement('p');
-      pDetalle.className = 'mt-1 font-mono text-[11px] text-ink-muted';
+      pDetalle.className = 'mt-1 font-mono text-micro text-ink-muted';
       pDetalle.textContent = `Detalle técnico: ${detalle}`;
       caja.appendChild(pDetalle);
     }

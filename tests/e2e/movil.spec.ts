@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { simularClimaDengue } from './clima-dengue-mock';
 
 const RUTAS = ['/dengue', '/respiratorio', '/departamento/SV-SS', '/alertas'];
 
@@ -147,3 +148,65 @@ test('en horizontal la cabecera deja de ser pegajosa', async ({ page }) => {
     'sticky',
   );
 });
+
+for (const [ancho, apilada] of [
+  [375, true],
+  [1280, false],
+] as const) {
+  test(`la tabla alternativa ${apilada ? 'se apila en tarjetas' : 'conserva columnas'} a ${ancho} px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: ancho, height: 800 });
+    await simularClimaDengue(page);
+    await page.goto('/analisis/clima');
+    const panel = page.locator('[data-panel-clima="asociacion"]');
+    await panel.scrollIntoViewIfNeeded();
+    await expect(panel.locator('[data-contenido]')).toBeVisible();
+    await panel
+      .getByText('Ver las correlaciones con sus intervalos en tabla')
+      .click();
+    const tabla = panel.getByRole('table', {
+      name: /Correlación entre la anomalía climática/,
+    });
+    await expect(tabla.locator('tbody tr')).toHaveCount(10);
+    await expect(tabla.locator('tbody th[scope=row]').first()).toBeVisible();
+    if (apilada) {
+      await expect(tabla.locator('thead')).toBeHidden();
+      const celda = tabla.locator('tbody td').first();
+      const etiqueta = await celda.getAttribute('data-etiqueta');
+      expect(etiqueta).toBeTruthy();
+      expect(
+        await celda.evaluate((td) => getComputedStyle(td, '::before').content),
+      ).toBe(`"${etiqueta}"`);
+      // Una fila completa se lee sin desplazar en horizontal.
+      const region = tabla.locator('xpath=..');
+      expect(
+        await region.evaluate((el) => el.scrollWidth - el.clientWidth),
+      ).toBeLessThanOrEqual(0);
+    } else {
+      await expect(tabla.locator('thead')).toBeVisible();
+      expect(
+        await tabla
+          .locator('tbody td')
+          .first()
+          .evaluate((td) => getComputedStyle(td).display),
+      ).toBe('table-cell');
+    }
+  });
+}
+
+for (const ancho of [1024, 1280, 1600]) {
+  test(`el mapa no queda aplastado junto a su barra lateral a ${ancho} px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: ancho, height: 900 });
+    await page.goto('/dengue');
+    const panel = await page
+      .locator('[data-panel-workspace="mapa"]')
+      .boundingBox();
+    const mapa = await page.locator('#mapa-departamentos').boundingBox();
+    // El mapa ocupa al menos la mitad del panel: la barra de controles solo
+    // se pone al lado cuando el panel tiene sitio para los dos.
+    expect(mapa!.width).toBeGreaterThan(panel!.width / 2);
+  });
+}
