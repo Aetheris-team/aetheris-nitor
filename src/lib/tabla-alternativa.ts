@@ -1,4 +1,4 @@
-import { escapeHtml } from '../utils/security';
+import { escapeHtml } from '../utils/security.ts';
 
 // Todo lo que se interpola en innerHTML pasa por escapeHtml (regla de la casa,
 // CLAUDE.md): los valores de las celdas vienen de la API -- el nombre del
