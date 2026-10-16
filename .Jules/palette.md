@@ -1,0 +1,3 @@
+## 2026-03-31 - External Link Tab Announcement & Dynamic Button Tooltips
+**Learning:** External footer links using `rel="noopener noreferrer"` without `target="_blank"` cause unexpected in-page navigation away from the site for users, while missing screen reader notes `(se abre en una nueva pestaña)` leave assistive technology users unaware of window focus shifts. Additionally, icon/toggle buttons benefit from dynamic `title` attributes that mirror the target state ("Cambiar a tema claro" / "Cambiar a tema oscuro") to aid hover discovery.
+**Action:** Always pair `target="_blank"` with `<span class="sr-only"> (se abre en una nueva pestaña)</span>` for external links and update element tooltips (`title`) alongside `aria-pressed` or button text state in toggle controls.
