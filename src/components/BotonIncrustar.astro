@@ -19,9 +19,11 @@ const src = new URL(ruta, sitio).href;
     data-src={src}
     data-titulo={titulo}
     data-alto={alto}
+    aria-label={`Copiar código para incrustar: ${titulo}`}
+    title={`Copiar código para incrustar: ${titulo}`}
     class="min-h-[44px] rounded-lg border border-border bg-bg px-3 py-1.5 font-sans text-xs font-semibold text-ink transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
   >
-    Incrustar
+    <span data-incrustar-texto>Incrustar</span>
   </button>
   <span
     data-incrustar-estado
@@ -40,11 +42,23 @@ const src = new URL(ruta, sitio).href;
     const estado = boton
       .closest('[data-incrustar]')
       ?.querySelector<HTMLElement>('[data-incrustar-estado]');
+    const textoBoton = boton.querySelector<HTMLElement>(
+      '[data-incrustar-texto]',
+    );
     const mensaje = await copiarIncrustacion({
       src: boton.dataset.src ?? '',
       titulo: boton.dataset.titulo ?? '',
       alto: Number(boton.dataset.alto) || 400,
     });
+    if (textoBoton && mensaje === 'Código copiado.') {
+      const textoOriginal = textoBoton.textContent ?? 'Incrustar';
+      textoBoton.textContent = '¡Copiado!';
+      boton.classList.add('text-accent', 'border-accent/50');
+      setTimeout(() => {
+        textoBoton.textContent = textoOriginal;
+        boton.classList.remove('text-accent', 'border-accent/50');
+      }, 2000);
+    }
     if (estado) anunciarEstado(estado, mensaje);
   });
 </script>
