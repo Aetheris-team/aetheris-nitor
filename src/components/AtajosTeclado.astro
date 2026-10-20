@@ -94,6 +94,14 @@ const GRUPOS: { grupo: GrupoAtajo; titulo: string }[] = [
     'atajos-ayuda',
   ) as HTMLDialogElement | null;
   const esMac = esPlataformaMac(navigator);
+  let elementoPrevioFoco: HTMLElement | null = null;
+
+  dialogo?.addEventListener('close', () => {
+    if (elementoPrevioFoco && typeof elementoPrevioFoco.focus === 'function') {
+      elementoPrevioFoco.focus();
+    }
+    elementoPrevioFoco = null;
+  });
 
   if (!('closedBy' in HTMLDialogElement.prototype) && dialogo) {
     dialogo.addEventListener('click', (evento) => {
@@ -136,8 +144,15 @@ const GRUPOS: { grupo: GrupoAtajo; titulo: string }[] = [
     else if (accion === 'ayuda' && dialogo) {
       if (dialogo.open) dialogo.close();
       else {
+        elementoPrevioFoco =
+          document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : null;
         pintarAyuda();
         dialogo.showModal();
+        dialogo
+          .querySelector<HTMLElement>('button[aria-label="Cerrar"]')
+          ?.focus();
       }
     }
   }
