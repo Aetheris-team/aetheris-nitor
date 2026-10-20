@@ -17,16 +17,16 @@ El sistema incluye:
 
 - Carga de los boletines y del tablero de MINSAL, OpenDengue, Open-Meteo y NOAA ONI, con un registro de cada boletín procesado.
 - Una base que guarda por separado cada definición de caso (`probable`, `confirmado`, `total`, `notificado`, `sospechoso`).
-- Módulos descriptivos (idoneidad biofísica, anomalía climática, presión epidemiológica relativa) que se calculan al consultarlos.
+- Módulos descriptivos (idoneidad biofísica, anomalía climática, presión epidemiológica relativa, integridad de la vigilancia) que se calculan al consultarlos.
 - Un mapa por departamento, un observatorio respiratorio y alertas de campo redactadas por el equipo de vigilancia.
-- Una copia de la base dentro del repositorio: `git clone` y `docker compose up` dejan el sistema funcionando con los mismos datos que el sitio público.
+- Una copia de la base dentro del repositorio: `git clone` y `docker compose up` dejan el sistema funcionando con datos reales. Esa copia todavía no trae las series del tablero de MINSAL (ver [arquitectura](/biblioteca/06-arquitectura-y-reproducibilidad)).
 
 ## Cómo está organizado el sitio
 
 El sitio tiene dos secciones:
 
 - Consulta (`/alertas`): el personal de salud ve las alertas vigentes y qué hacer en su unidad.
-- Análisis (`/analisis`): dengue (mapa y módulos descriptivos M1 a M3) y respiratorio (neumonías, IRA y vigilancia de laboratorio de virus).
+- Análisis (`/analisis`): dengue (mapa y módulos descriptivos M1 a M4) y respiratorio (neumonías, IRA y vigilancia de laboratorio de virus).
 
 Esta Biblioteca explica qué es el proyecto, qué funciones tiene, de dónde salen los datos y cómo se calculan. Los límites del sistema, y lo que no afirma, están en el [aviso de sensibilidad](/biblioteca/05-sensibilidad-y-honestidad).
 

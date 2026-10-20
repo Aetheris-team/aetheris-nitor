@@ -5,7 +5,7 @@ orden: 4
 categoria: "Datos y método"
 ---
 
-Cada conteo y cada variable de clima de EPI-Aetheris viene de una fuente pública y lleva su `fuente_id` en la base. Esta página resume de dónde sale cada serie, qué años cubre y con qué licencia se usa. Los problemas encontrados al cargar cada fuente están documentados en las [notas de fuentes del repositorio](https://github.com/aetheris-team/EPI-Aetheris/blob/main/docs/contexto/03-fuentes-de-datos.md).
+Cada conteo y cada variable de clima de EPI-Aetheris viene de una fuente pública y lleva su `fuente_id` en la base. Esta página resume de dónde sale cada serie, qué años cubre y con qué licencia se usa. Los problemas encontrados al cargar cada fuente están resumidos en las [notas técnicas del repositorio](https://github.com/aetheris-team/EPI-Aetheris/blob/main/AGENTS.md) (sección 17, «Fuentes de datos») y en sus [registros de decisiones](https://github.com/aetheris-team/EPI-Aetheris/tree/main/docs/adr).
 
 ## Boletines epidemiológicos de MINSAL
 
@@ -72,7 +72,7 @@ Los datos diarios se pasan a semanales con la media en las variables de estado y
 
 Los términos de Open-Meteo permiten el uso no comercial en investigación pública y contenido educativo. El proyecto es de una institución educativa pública, para una feria técnica, sin publicidad ni suscripciones.
 
-Filas cargadas: 35.868 (7 variables, 14 departamentos, de 2018 a 2024, con 2020). La carga respeta el límite de consultas por minuto de la API y reintenta con espera cuando recibe un `429`.
+Filas cargadas en la copia actual de la base: 64.876 (7 variables, 14 departamentos, de 2014 a la semana 35 de 2026, con 2020). La carga respeta el límite de consultas por minuto de la API y reintenta con espera cuando recibe un `429`.
 
 ## NOAA ONI
 
@@ -84,6 +84,6 @@ Se probó como variable del clasificador retirado y no mejoró sus resultados. S
 
 ## Cómo se citan en la base
 
-`fuentes_datos.codigo` usa estas cadenas: `opendengue_v1_3`, `minsal_pdf`, `open_meteo_era5_land`, `open_meteo_era5`, `noaa_oni`. `variables_ambientales.variable` es texto libre sin restricción, así que un error de escritura crearía una serie nueva sin avisar. Las variables en uso son `temp_max`, `temp_min`, `temp_media`, `precipitation_sum`, `precipitation_hours`, `humedad_relativa_media`, `punto_rocio` y `oni_anom`.
+`fuentes_datos.codigo` usa estas cadenas: `opendengue_v1_3`, `minsal_pdf`, `minsal_tablero`, `open_meteo_era5_land`, `open_meteo_era5`, `noaa_oni`. `variables_ambientales.variable` es texto libre sin restricción, así que un error de escritura crearía una serie nueva sin avisar. Las variables en uso son `temp_max`, `temp_min`, `temp_media`, `precipitation_sum`, `precipitation_hours`, `humedad_relativa_media`, `punto_rocio` y `oni_anom`.
 
 Los límites departamentales del mapa vienen de geoBoundaries gbOpen SLV ADM1 (datos de OSM a través de osm-boundaries.com), con licencia CC BY-SA 2.0. La cartografía se renderiza localmente como trazados vectoriales SVG integrados, sin peticiones de red a servidores de mapas externos ni descarga de teselas de terceros. La atribución está en los [términos de uso](/legal/terminos).

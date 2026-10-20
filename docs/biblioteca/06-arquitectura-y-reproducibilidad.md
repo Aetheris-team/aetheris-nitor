@@ -1,23 +1,25 @@
 ---
 titulo: "Arquitectura y reproducibilidad"
-descripcion: "Tres servicios Docker, una copia de la base incluida en el repositorio y los pasos para levantar el sistema con git clone y docker compose up."
+descripcion: "Servicios Docker, una copia de la base incluida en el repositorio y los pasos para levantar el sistema con git clone y docker compose up."
 orden: 6
 categoria: "Cómo funciona"
 ---
 
 Para instalar EPI-Aetheris basta con el [repositorio](https://github.com/aetheris-team/EPI-Aetheris) y Docker. El núcleo no depende de APIs de datos de pago ni de servicios en la nube obligatorios. Las rutas de archivo de esta página son relativas a la raíz del repositorio.
 
-## Tres servicios
+## Servicios
 
-`docker-compose.yml` define una red (`aetheris_network`) y tres contenedores:
+`docker-compose.yml` define una red (`aetheris_network`) y estos contenedores. `docker compose up` levanta solo la base y el backend; los demás se activan con un perfil:
 
-| Servicio | Qué es | Puerto |
-|---|---|---|
-| `db` | PostgreSQL 15 | 5432 |
-| `backend` | FastAPI con `psycopg2`, sin ORM | 8000 (`/health`; `/docs` solo en local) |
-| `web` | Astro, TypeScript, mapas vectoriales SVG y Tailwind | 4321 |
+| Servicio | Qué es | Puerto | Arranque |
+|---|---|---|---|
+| `db` | PostgreSQL 15 | 5432 | siempre |
+| `backend` | FastAPI con `psycopg2`, sin ORM | 8000 (`/health`; `/docs` solo en local) | siempre |
+| `web` | Astro, TypeScript, Tailwind, ECharts y mapas vectoriales SVG | 4321 | perfil `web` |
+| `mailpit` | Bandeja de correo de prueba para las cuentas | 8025 | perfil `cuentas` |
+| `e2e` | Pruebas de extremo a extremo con Playwright | — | perfil `test` |
 
-La primera vez que arranca con un volumen vacío, la base crea el esquema a partir de `db/migrations/*.sql` y carga `db/seed/seed_datos_reales.sql`, una copia de las tablas de datos hecha con `pg_dump --data-only` (ADR 0010). Así, quien clona el repositorio tiene el sistema funcionando con los mismos datos que el sitio público.
+La primera vez que arranca con un volumen vacío, la base crea el esquema a partir de `db/migrations/*.sql` y carga `db/seed/seed_datos_reales.sql`, una copia de las tablas de datos hecha con `pg_dump --data-only` (ADR 0010). Así, quien clona el repositorio tiene el sistema funcionando con datos reales.
 
 Equipo mínimo: 4 GB de RAM, procesador x86-64 de dos núcleos y unos 10 GB de disco.
 
@@ -25,10 +27,11 @@ Equipo mínimo: 4 GB de RAM, procesador x86-64 de dos núcleos y unos 10 GB de d
 
 ```bash
 cp .env.example .env   # completar POSTGRES_*; .env no se sube al repositorio
-docker compose up --build
+docker compose up --build                       # base y backend
+docker compose --profile web up -d web          # opcional: el sitio en un contenedor
 ```
 
-La API queda en `http://localhost:8000` y el sitio en `http://localhost:4321`. La configuración de CORS del backend local ya admite ese origen.
+La API queda en `http://localhost:8000` y el sitio, con el perfil `web` o con `pnpm dev`, en `http://localhost:4321`. La configuración de CORS del backend local ya admite ese origen.
 
 Sin Docker, para desarrollo:
 
@@ -40,6 +43,8 @@ Los datos descargados y los archivos intermedios no se guardan en el repositorio
 ## Qué incluye la copia de la base
 
 Un archivo de texto de unos 4,4 MB, sin los PDF originales. Contiene las tablas `semanas_epidemiologicas`, `boletines_procesados`, `casos_epidemiologicos`, `variables_ambientales` y `vigilancia_virus_respiratorios`, con 2.742 filas de IRA, 2.749 de neumonías y 3.028 de vigilancia de virus.
+
+Se regeneró por última vez el 10 de septiembre de 2026, antes de incorporar el tablero de MINSAL: no incluye las series nacionales de 2025 y 2026 de esa fuente. Se cargan aparte con `backend/ingestion/cargar_minsal_tablero.py`, a partir de capturas del tablero que no se guardan en el repositorio.
 
 No incluye `regiones`, `tipos_evento` ni `fuentes_datos`, que las crean las propias migraciones, ni `schema_migrations`, que la crea el programa de migraciones.
 
@@ -59,13 +64,13 @@ Se ejecuta desde el equipo anfitrión contra `localhost:5432`. No tiene marcha a
 ## Tecnologías
 
 - Backend: Python, FastAPI, scikit-learn (solo para el clasificador retirado), `pdfplumber` y `epiweeks` (semanas epidemiológicas de OPS/CDC, distintas de las semanas ISO 8601).
-- Frontend: Astro, TypeScript, Tailwind CSS 4 y mapas vectoriales SVG nativos sin dependencias externas, sin React ni Vue.
+- Frontend: Astro, TypeScript, Tailwind CSS 4, ECharts para los gráficos y mapas vectoriales SVG nativos sin dependencias externas, sin React ni Vue. Se desarrolla en el repositorio [aetheris-nitor](https://github.com/aetheris-team/aetheris-nitor) y se copia a `web/` del repositorio principal.
 - Tablas, columnas y comentarios del código están en español.
 
 Esta Biblioteca se escribe en Markdown y Astro la publica como colección de contenido. La documentación interna del equipo (decisiones de arquitectura, notas de contexto, informes de experimentos) está en `docs/` y no se publica aquí.
 
 ## Despliegue público
 
-El sitio público está en Render y se configura en `render.yaml`: una base Postgres 15 gestionada, el backend en Docker (que aplica las migraciones antes de cada despliegue con `python db/aplicar_migraciones.py`) y el sitio estático de Astro, que se genera con `pnpm build` y publica la carpeta `dist/`. Los tres servicios están en la región `oregon`, y la API y la base se comunican por red privada.
+El sitio público está en Render. `render.yaml` configura una base Postgres 15 gestionada y el backend en Docker, que aplica las migraciones antes de cada despliegue con `python db/aplicar_migraciones.py`; los dos están en la región `oregon` y se comunican por red privada. El sitio estático de Astro se publica aparte desde el repositorio aetheris-nitor: se genera con `pnpm build`, publica la carpeta `dist/` y se sirve por CDN.
 
 Al publicar una versión nueva del frontend hay que subir `VERSION` en `web/public/sw.js`, para que los navegadores descarguen la estructura nueva del sitio en lugar de usar la guardada.

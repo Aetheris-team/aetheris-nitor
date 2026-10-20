@@ -5,7 +5,7 @@ orden: 3
 categoria: "Cómo funciona"
 ---
 
-Cada función se describe con lo que mide, los datos que usa y lo que deja fuera. Los módulos M1 a M3 se calculan al consultar la API, sin tabla propia en la base.
+Cada función se describe con lo que mide, los datos que usa y lo que deja fuera. Los módulos M1 a M4 se calculan al consultar la API, sin tabla propia en la base.
 
 ## M1. Idoneidad biofísica (`Iv`)
 
@@ -96,7 +96,7 @@ Usa los mismos boletines de MINSAL, pero otras tablas, y desde 2025 el tablero d
 - Vigilancia de laboratorio nacional (ADR 0012): muestras, detecciones y positividad de influenza, VSR y SARS-CoV-2, en la tabla `vigilancia_virus_respiratorios`. COVID-19 aparece como fila propia en 2023. No hay mapa por departamento de virus.
 - Un panel de cobertura indica qué semanas y qué tablas hay.
 
-Las fórmulas de M1 a M3 solo están definidas para dengue, así que esta sección no las usa.
+Las fórmulas de M1 a M4 solo están definidas para dengue, así que esta sección no las usa.
 
 ## Alertas de campo
 
@@ -106,7 +106,7 @@ Para publicar o editar se usan `POST /api/alertas` y `PATCH /api/alertas/{id}` c
 
 Los cinco campos clínicos (ADR 0014) se llenaron por tipo de alerta transcribiendo VIGEPES y OPS, con la fuente citada. Si la fuente no da un dato, el campo queda en `null`; en respiratorio pasa con los signos de alarma y los criterios de referencia. El sistema no rellena teléfonos ni correos.
 
-Las alertas no se generan a partir de M1 a M3 ni del clasificador retirado.
+Las alertas no se generan a partir de M1 a M4 ni del clasificador retirado.
 
 ## Uso sin conexión
 

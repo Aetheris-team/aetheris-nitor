@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // Documentos propios de la Biblioteca pública (docs/biblioteca/), escritos
-// para un lector externo. La documentación interna del equipo (docs/contexto/,
+// para un lector externo. La documentación interna del equipo (AGENTS.md,
 // docs/adr/, corridas) no alimenta esta colección: se sintetiza, no se
 // reutiliza cruda. Orden, título, descripción y agrupación salen del
 // frontmatter -- no hay un array paralelo en las páginas.
@@ -13,7 +13,7 @@ import { z } from 'astro/zod';
 // repo suelto aetheris-nitor, que se despliega solo y no tiene ningun padre
 // del que colgar. Se prueba primero la copia propia del repo y se cae a la del
 // monorepo. Sin esto, el repo suelto compila sin error pero deja la coleccion
-// vacia, y las cinco paginas de /biblioteca -- todas enlazadas desde el pie
+// vacia, y las paginas de /biblioteca -- todas enlazadas desde el pie
 // -- se quedan sin generar y responden 404 en produccion.
 const RUTA_PROPIA = new URL('../docs/biblioteca', import.meta.url);
 const RUTA_MONOREPO = new URL('../../docs/biblioteca', import.meta.url);
